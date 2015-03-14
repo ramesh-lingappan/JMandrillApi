@@ -26,4 +26,7 @@ MandrillUserInfo userInfo  = mandrillApi.users().info();
 
 still working on this will add more services 
 
+## License 
+See the [LICENSE](https://github.com/ramesh-dev/JMandrillApi/blob/master/LICENSE) file for license rights and limitations (MIT).
+
 
