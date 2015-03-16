@@ -4,7 +4,8 @@
 package com.jmandrillapi;
 
 import com.jmandrillapi.enums.MediaType;
-import com.jmandrillapi.services.MandrillUserApiService;
+import com.jmandrillapi.services.MandrillMessageApi;
+import com.jmandrillapi.services.MandrillUserApi;
 
 /**
  * The Class MandrillApi.
@@ -24,8 +25,10 @@ public class MandrillApi extends MandrillBaseApi {
 	/**
 	 * Instantiates a new mandrill api.
 	 *
-	 * @param apiKey the api key
-	 * @param respFormat the resp format
+	 * @param apiKey
+	 *            the api key
+	 * @param respFormat
+	 *            the resp format
 	 */
 	public MandrillApi(String apiKey, MediaType respFormat) {
 		super(apiKey, respFormat);
@@ -36,8 +39,17 @@ public class MandrillApi extends MandrillBaseApi {
 	 *
 	 * @return the mandrill user api service
 	 */
-	public MandrillUserApiService users() {
-		return new MandrillUserApiService(apiKey);
+	public MandrillUserApi users() {
+		return new MandrillUserApi(apiKey);
+	}
+
+	/**
+	 * Messages.
+	 *
+	 * @return the mandrill message api
+	 */
+	public MandrillMessageApi messages() {
+		return new MandrillMessageApi(apiKey);
 	}
 
 }

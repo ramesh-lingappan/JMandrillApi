@@ -10,4 +10,10 @@ public class ApiServiceMethods {
 		public static final String SENDERS = BASE_USER_PATH + "/senders";
 	}
 
+	public class Messages {
+		public static final String BASE_MSG_PATH = "/messages";
+		public static final String SEND = BASE_MSG_PATH + "/send";
+		public static final String SEND_TEMPLATE = BASE_MSG_PATH + "/send-template";
+	}
+
 }

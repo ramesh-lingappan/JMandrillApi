@@ -17,10 +17,7 @@ import com.jmandrillapi.utils.ApiServiceMethods;
 /**
  * The Class MandrillUserApiService.
  */
-public class MandrillUserApiService extends MandrillBaseApi {
-
-	/** The Constant USER_PATH. */
-	public static final String USER_PATH = "/users";
+public class MandrillUserApi extends MandrillBaseApi {
 
 	/**
 	 * Instantiates a new mandrill user api service.
@@ -28,12 +25,12 @@ public class MandrillUserApiService extends MandrillBaseApi {
 	 * @param apiKey
 	 *            the api key
 	 */
-	public MandrillUserApiService(String apiKey) {
+	public MandrillUserApi(String apiKey) {
 		super(apiKey);
 	}
 
 	/**
-	 * fetchs User Info of connected api key
+	 * fetchs User Info of connected api key.
 	 *
 	 * @return the mandrill user info
 	 * @throws IOException

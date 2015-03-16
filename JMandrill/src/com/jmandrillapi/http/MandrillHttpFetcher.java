@@ -41,6 +41,7 @@ public class MandrillHttpFetcher {
 			throw new IllegalArgumentException("Invalid Request Property");
 
 		URL url = request.buildUrl();
+	//	System.out.println(url.toString());
 		HttpURLConnection conn = (HttpURLConnection) url.openConnection();
 		conn.setDoOutput(true);
 
@@ -48,6 +49,7 @@ public class MandrillHttpFetcher {
 		conn.setRequestProperty("Accept", request.getRespContentType().getContentType());
 		conn.setRequestMethod("POST");
 
+		//System.out.println(new MandrillObjectMapper().writeValueAsString(request.getParams()));
 		OutputStream os = conn.getOutputStream();
 		os.write(jsonPayload(request.getParams()));
 		os.flush();
