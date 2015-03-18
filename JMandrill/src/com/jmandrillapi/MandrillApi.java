@@ -5,6 +5,7 @@ package com.jmandrillapi;
 
 import com.jmandrillapi.enums.MediaType;
 import com.jmandrillapi.services.MandrillMessageApi;
+import com.jmandrillapi.services.MandrillSubAccountApi;
 import com.jmandrillapi.services.MandrillUserApi;
 
 /**
@@ -44,12 +45,25 @@ public class MandrillApi extends MandrillBaseApi {
 	}
 
 	/**
-	 * Messages.
+	 * Messages Api
 	 *
 	 * @return the mandrill message api
 	 */
 	public MandrillMessageApi messages() {
 		return new MandrillMessageApi(apiKey);
+	}
+
+	/**
+	 * Subaccounts Api
+	 *
+	 * With subaccounts api service - you can separate reputation, activity,
+	 * reports, and quotas for different types of senders in a single Mandrill
+	 * account.
+	 *
+	 * @return the mandrill sub account api
+	 */
+	public MandrillSubAccountApi subaccounts() {
+		return new MandrillSubAccountApi(apiKey);
 	}
 
 }
