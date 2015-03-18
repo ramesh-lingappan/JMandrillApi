@@ -29,11 +29,15 @@ public class MandrillHttpFetcher {
 	/**
 	 * Make request.
 	 *
-	 * @param <T> the generic type
-	 * @param request the request
+	 * @param <T>
+	 *            the generic type
+	 * @param request
+	 *            the request
 	 * @return the t
-	 * @throws IOException Signals that an I/O exception has occurred.
-	 * @throws MandrillError the mandrill error
+	 * @throws IOException
+	 *             Signals that an I/O exception has occurred.
+	 * @throws MandrillError
+	 *             the mandrill error
 	 */
 	public static <T> T makeRequest(MandrillApiRequest<T> request) throws IOException, MandrillError {
 
@@ -41,7 +45,6 @@ public class MandrillHttpFetcher {
 			throw new IllegalArgumentException("Invalid Request Property");
 
 		URL url = request.buildUrl();
-	//	System.out.println(url.toString());
 		HttpURLConnection conn = (HttpURLConnection) url.openConnection();
 		conn.setDoOutput(true);
 
@@ -49,12 +52,20 @@ public class MandrillHttpFetcher {
 		conn.setRequestProperty("Accept", request.getRespContentType().getContentType());
 		conn.setRequestMethod("POST");
 
-		//System.out.println(new MandrillObjectMapper().writeValueAsString(request.getParams()));
 		OutputStream os = conn.getOutputStream();
 		os.write(jsonPayload(request.getParams()));
-		os.flush();
+		os.close();
 
-		String respData = streamToString(conn.getInputStream());
+		InputStream is = null;
+		try {
+			is = conn.getInputStream();
+		} catch (IOException e) {
+			if (conn.getResponseCode() != 200)
+				is = conn.getErrorStream();
+		}
+
+		String respData = streamToString(is);
+
 		if (ObjectUtils.isBlank(respData))
 			throw new MandrillError("Unable to parse the response body");
 
@@ -69,27 +80,34 @@ public class MandrillHttpFetcher {
 	/**
 	 * Stream to string.
 	 *
-	 * @param is the is
+	 * @param is
+	 *            the is
 	 * @return the string
-	 * @throws IOException Signals that an I/O exception has occurred.
+	 * @throws IOException
+	 *             Signals that an I/O exception has occurred.
 	 */
 	public static String streamToString(InputStream is) throws IOException {
-		try (BufferedReader rd = new BufferedReader(new InputStreamReader(is))) {
-			StringBuilder sb = new StringBuilder();
-			String line;
-			while ((line = rd.readLine()) != null) {
-				sb.append(line);
-			}
-			return sb.toString();
+		if (is == null)
+			return null;
+
+		BufferedReader rd = new BufferedReader(new InputStreamReader(is));
+		StringBuilder sb = new StringBuilder();
+		String line;
+		while ((line = rd.readLine()) != null) {
+			sb.append(line);
 		}
+		rd.close();
+		return sb.toString();
 	}
 
 	/**
 	 * Json payload.
 	 *
-	 * @param obj the obj
+	 * @param obj
+	 *            the obj
 	 * @return the byte[]
-	 * @throws JsonProcessingException the json processing exception
+	 * @throws JsonProcessingException
+	 *             the json processing exception
 	 */
 	public static byte[] jsonPayload(Object obj) throws JsonProcessingException {
 		if (obj == null)
