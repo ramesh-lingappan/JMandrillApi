@@ -7,6 +7,12 @@ A simple work in progress api wrapper for [Mandrill Api](https://mandrillapp.com
 
 no other dependencies!!
 
+## Features
+
+- No heavy dependencies 
+- Easier api service call methods
+- Lot of convenient methods and helper classes
+
 ## Reference  
 
 - this library is build using the reference from [Lutung Mandrill Api Wrapper](https://github.com/rschreijer/lutung)
