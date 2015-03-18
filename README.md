@@ -11,7 +11,7 @@ no other dependencies!!
 
 - No heavy dependencies 
 - Easier api service call methods
-- Lot of convenient methods and helper classes
+- Convenient helper methods and classes
 
 ## Reference  
 
